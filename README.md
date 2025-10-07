@@ -1,7 +1,7 @@
 # MusicLabelManager
 Website for managing labels, producers, artists and music.
 
-## Project Requirments
+## Project Requirements
 - [X] The project will use a MySQL database and will be programmed in PHP. 
 - [ ] Through the application, deletion, adding, reading operations will be performed on the database.
 - [ ] There will be a user login/registration page.
