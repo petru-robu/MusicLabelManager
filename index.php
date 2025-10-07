@@ -1,5 +1,14 @@
 <?php
-    print('<h1>Hello, this is a php test!</h1>' );
-    print('Another change!');
-    print('New change local.');
+$servername = "localhost";
+$username = "devuser";
+$password = "password";
+$dbname = "testdb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+$conn->close();
 ?>
