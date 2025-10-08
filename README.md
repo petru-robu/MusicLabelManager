@@ -12,3 +12,10 @@ Website for managing labels, producers, artists and music.
 - [ ] Contact form with the possibility to send emails.
 - [ ] Integration of information (not just pages, elements of them – parsing content) from external sources.
 - [ ] End of the session.
+
+## Development
+- For dev build with:
+`sudo docker compose up -d --build`
+
+- For production build with:
+`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
