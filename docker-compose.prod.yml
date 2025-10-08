@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  php:
+    # no host port, internal only
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - php
+
+volumes:
+  caddy_data:
+  caddy_config:

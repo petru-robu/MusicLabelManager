@@ -1,0 +1,3 @@
+petrucodes.ro {
+    reverse_proxy php:80
+}
