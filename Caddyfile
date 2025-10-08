@@ -1,3 +1,4 @@
 petrucodes.ro, www.petrucodes.ro {
     reverse_proxy php:80
+    encode gzip
 }
