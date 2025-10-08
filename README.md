@@ -13,9 +13,16 @@ Website for managing labels, producers, artists and music.
 - [ ] Integration of information (not just pages, elements of them – parsing content) from external sources.
 - [ ] End of the session.
 
+## Stack
+- PHP
+- Apache (PHP execution)
+- MySQL (database)
+- Docker
+- Caddy (reverse proxy, ssl certificate renewal)
+
 ## Development
 - For dev build with:
-`sudo docker compose up -d --build`
+```sudo docker compose up -d --build```
 
 - For production build with:
-`sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
+```sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build```

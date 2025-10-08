@@ -3,16 +3,22 @@ version: "3.9"
 services:
   php:
     build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: php
     volumes:
-      - ./src:/var/www/html
-    depends_on:
-      - db
+      - ./backend/src:/var/www/html
+    ports:
+      - "8080:80"   # expose for local dev
 
   db:
     image: mysql:8.0
-    env_file: .env
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
     volumes:
       - db_data:/var/lib/mysql
 
