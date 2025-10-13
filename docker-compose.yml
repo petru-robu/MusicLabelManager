@@ -17,6 +17,9 @@ services:
       - DB_DATABASE=laravel_db
       - DB_USERNAME=root
       - DB_PASSWORD=root
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=http://petrucodes.ro
 
   frontend:
     build:
@@ -27,7 +30,6 @@ services:
     volumes:
       - ./frontend:/app
     working_dir: /app
-    command: npm run dev
 
   db:
     image: mysql:8.0
