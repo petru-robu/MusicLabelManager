@@ -14,15 +14,19 @@ Website for managing labels, producers, artists and music.
 - [ ] End of the session.
 
 ## Stack
-- PHP
-- Apache (PHP execution)
-- MySQL (database)
 - Docker
-- Caddy (reverse proxy, ssl certificate renewal)
+- Laravel PHP (backend)
+- MySQL (database)
+- Vite + React (frontend)
 
 ## Development
-- For dev build with:
+- Build with:
 ```sudo docker compose up -d --build```
 
-- For production build with:
-```sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build```
+## Production
+- Stop and remove all containers: 
+``` sudo docker stop $(sudo docker ps -a -q)```
+``` sudo docker rm -f $(sudo docker ps -a -q) ```
+
+- Build with:
+```sudo docker compose up -d --build```
