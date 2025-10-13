@@ -1,39 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { API_URL } from './config'; // or hardcode URL
+import { useState, useEffect } from 'react';
+import './App.css'
 
 function App() {
-  const [artists, setArtists] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL)
+    fetch('http://localhost:8000/api/items')
       .then(res => res.json())
-      .then(data => setArtists(data))
+      .then(data => setItems(data))
       .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
-      <h1>Artists</h1>
-      <table border="1" cellPadding="5">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Genre</th>
-          </tr>
-        </thead>
-        <tbody>
-          {artists.map(artist => (
-            <tr key={artist.id}>
-              <td>{artist.id}</td>
-              <td>{artist.name}</td>
-              <td>{artist.genre}</td>
-            </tr>
+      <h1>Items from database: </h1>
+      {items.length > 0 ? (
+        <ul>
+          {items.map(item => (
+            <li key={item.id}>{item.name}</li>
           ))}
-        </tbody>
-      </table>
+        </ul>
+      ) : (
+        <p>No items found.</p>
+      )}
+
     </div>
   );
 }
+
 
 export default App;

@@ -1,9 +1,19 @@
-FROM php:8.2-apache
+# backend/Dockerfile
+FROM php:8.2-fpm
 
-# Install MySQL extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev zip unzip git curl \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-# Copy source files
-COPY ./src /var/www/html/
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-EXPOSE 80
+WORKDIR /var/www/html
+
+COPY . .
+
+RUN composer install
+
+EXPOSE 8000
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
