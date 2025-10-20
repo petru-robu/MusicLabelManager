@@ -32,8 +32,9 @@ RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 RUN npm install
 
 # Fix permissions for Laravel writable dirs
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
 
 # Optional if using Apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -43,8 +44,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Expose ports for Apache and Vite dev server
 EXPOSE 80
 EXPOSE 5173
-
-RUN npm run build
 
 # Start Apache
 CMD ["apache2-foreground"]
