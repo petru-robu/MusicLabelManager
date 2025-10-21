@@ -1,3 +1,10 @@
+# Build stage
+FROM node:20 as build
+WORKDIR /app
+COPY package*.json vite.config.js ./
+COPY resources ./resources
+RUN npm ci && npm run build
+
 # Use PHP 8.3 with Apache
 FROM php:8.3-apache
 
@@ -22,19 +29,22 @@ WORKDIR /var/www/html
 # Copy app files first (before composer install)
 COPY . .
 
+# Copy built frontend
+COPY --from=build /app/public/build ./public/build
+
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install PHP dependencies
 RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
-# Install Node dependencies (for React/Vite)
-RUN npm install
+# Cache configs and routes
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
+
 
 # Fix permissions for Laravel writable dirs
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
-
 
 # Optional if using Apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
