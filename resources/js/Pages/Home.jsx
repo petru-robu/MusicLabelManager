@@ -1,7 +1,12 @@
+import Layout from "../Layouts/Layout"
 
-export default function Home()
+function Home()
 {
     return <>
-        <h1>Works!</h1>
+        <h1 className="title">Music Label Manager</h1>
     </>
 }
+
+Home.layout = page => <Layout children={page}/>
+
+export default Home;
