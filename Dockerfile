@@ -13,9 +13,6 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring zip
 
-# Enable Apache rewrite
-RUN a2enmod rewrite
-
 # Set working directory
 WORKDIR /var/www/html
 
@@ -45,6 +42,12 @@ RUN chown www-data:www-data /var/www/html/.env
 
 # Ensure readable
 RUN chmod 644 /var/www/html/.env
+
+# Enable Apache modules
+RUN a2enmod rewrite ssl headers
+
+# Install Certbot
+RUN apt-get update && apt-get install -y certbot python3-certbot-apache
 
 # Expose ports for Apache and Vite dev server
 EXPOSE 80
