@@ -38,5 +38,38 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  webserver:
+    image: httpd:2.4
+    container_name: apache_web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./apache/default.conf:/usr/local/apache2/conf/httpd.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - .:/var/www/html
+    depends_on:
+      - app
+    networks:
+      - web
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 12h & wait $${!}; certbot renew; done;'"
+    networks:
+      - web
+
+  
+
 volumes:
   db_data:
+
+networks:
+  web:
+    driver: bridge
