@@ -7,10 +7,15 @@ export default defineConfig({
     server: {
         host: true,
         port: 5173,
-	cors: true,
+	    cors: true,
+        https: {
+            key: fs.readFileSync(path.resolve(__dirname, 'certs/key.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, 'certs/cert.pem')),
+        },
         hmr: {
             host: 'petrucodes.ro',
-	    protocol: 'ws',
+	        protocol: 'wss',
+            port: 5173,
         },
         watch: {
             ignored: ['**/vendor/**', '**/node_modules/**'],
