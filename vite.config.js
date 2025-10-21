@@ -11,8 +11,8 @@ export default defineConfig({
         port: 5173,
 	    cors: true,
         https: {
-            key: fs.readFileSync(path.resolve(__dirname, 'certs/key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, 'certs/cert.pem')),
+            key: fs.readFileSync(path.resolve(__dirname, 'certs/live/petrucodes.ro/privkey.pem')),
+            cert: fs.readFileSync(path.resolve(__dirname, 'certs/live/petrucodes.ro/fullchain.pem')),
         },
         hmr: {
             host: 'petrucodes.ro',
