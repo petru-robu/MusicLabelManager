@@ -9,7 +9,7 @@ export default defineConfig({
         port: 5173,
 	cors: true,
         hmr: {
-            host: '159.89.104.112',
+            host: 'petrucodes.ro',
 	    protocol: 'ws',
         },
         watch: {
