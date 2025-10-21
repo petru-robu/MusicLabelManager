@@ -7,9 +7,11 @@ services:
     container_name: laravel-app
     ports:
       - "8000:80"
-      - "5173:5173"
+      - "5173:5173"   # expose Vite dev server
     volumes:
-      - app_storage:/var/www/html/storage
+      - .:/var/www/html
+      - ./vendor:/var/www/html/vendor
+      - ./node_modules:/var/www/html/node_modules
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
@@ -38,4 +40,3 @@ services:
 
 volumes:
   db_data:
-  app_storage:

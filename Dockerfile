@@ -1,12 +1,3 @@
-# Stage 1: Node build
-FROM node:20 AS node_builder
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-
 # Use PHP 8.3 with Apache
 FROM php:8.3-apache
 
@@ -28,8 +19,6 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-COPY --from=node_builder /app/public/build ./public/build
-
 # Copy app files first (before composer install)
 COPY . .
 
@@ -38,6 +27,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install PHP dependencies
 RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+# Install Node dependencies (for React/Vite)
+RUN npm install
 
 # Fix permissions for Laravel writable dirs
 RUN chown -R www-data:www-data storage bootstrap/cache \
