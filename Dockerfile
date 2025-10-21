@@ -40,6 +40,11 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
+# Change ownership to www-data
+RUN chown www-data:www-data /var/www/html/.env
+
+# Ensure readable
+RUN chmod 644 /var/www/html/.env
 
 # Expose ports for Apache and Vite dev server
 EXPOSE 80
