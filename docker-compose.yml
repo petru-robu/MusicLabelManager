@@ -40,17 +40,7 @@ services:
       MYSQL_PASSWORD: laravelpass
     volumes:
       - db_data:/var/lib/mysql
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - cert_data:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 12h & wait $${!}; certbot renew; done;'"
-    networks:
-      - web
-  
+      - ./certs:/var/www/html/certs
 
 volumes:
   db_data:
