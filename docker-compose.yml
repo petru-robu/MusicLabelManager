@@ -13,8 +13,8 @@ services:
       - .:/var/www/html
       - ./vendor:/var/www/html/vendor
       - ./node_modules:/var/www/html/node_modules
-      - cert_data:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./certs:/var/www/html/certs
     environment:
       - APP_ENV=local
       - APP_DEBUG=false
@@ -40,7 +40,6 @@ services:
       MYSQL_PASSWORD: laravelpass
     volumes:
       - db_data:/var/lib/mysql
-      - ./certs:/var/www/html/certs
 
 volumes:
   db_data:
