@@ -29,7 +29,7 @@ RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 RUN npm ci && npm run build
 
 # Remove node and npm to slim image
-RUN apt-get purge -y nodejs npm && apt-get autoremove -y && apt-get clean
+# RUN apt-get purge -y nodejs npm && apt-get autoremove -y && apt-get clean
 
 # Fix permissions for Laravel writable dirs
 RUN chown -R www-data:www-data storage bootstrap/cache \
