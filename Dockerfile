@@ -26,7 +26,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
 # Install Node dependencies and build production assets
-RUN npm ci && npm run build
+# RUN npm ci && npm run build
 
 # Remove node and npm to slim image
 # RUN apt-get purge -y nodejs npm && apt-get autoremove -y && apt-get clean
