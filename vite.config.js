@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: 'resources/js/app.jsx',
-            refresh: true,
+            refresh: false,
         }),
         react(),
         tailwindcss(),
