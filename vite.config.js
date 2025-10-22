@@ -10,19 +10,20 @@ export default defineConfig({
         laravel({
             input: 'resources/js/app.jsx',
             refresh: false,
+            buildDirectory: 'build',
         }),
         react(),
         tailwindcss(),
-        {
-            name: 'move-manifest',
-            writeBundle(options, bundle) {
-                const viteManifestPath = path.resolve('public/build/.vite/manifest.json');
-                const targetPath = path.resolve('public/build/manifest.json');
-                if (fs.existsSync(viteManifestPath)) {
-                    fs.renameSync(viteManifestPath, targetPath);
-                }
-            },
-        },
+        // {
+        //     name: 'move-manifest',
+        //     writeBundle(options, bundle) {
+        //         const viteManifestPath = path.resolve('public/build/.vite/manifest.json');
+        //         const targetPath = path.resolve('public/build/manifest.json');
+        //         if (fs.existsSync(viteManifestPath)) {
+        //             fs.renameSync(viteManifestPath, targetPath);
+        //         }
+        //     },
+        // },
     ],
     build: {
         outDir: 'public/build',
