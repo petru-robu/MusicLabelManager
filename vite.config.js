@@ -6,24 +6,6 @@ import fs from 'fs';
 import path from 'path';
 
 export default defineConfig({
-    server: {
-        host: true,
-        port: 5173,
-	    cors: true,
-        https: {
-            key: fs.readFileSync(path.resolve(__dirname, 'certs/live/petrucodes.ro/privkey.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, 'certs/live/petrucodes.ro/fullchain.pem')),
-        },
-        hmr: {
-            host: 'petrucodes.ro',
-	        protocol: 'wss',
-            port: 5173,
-        },
-        watch: {
-            ignored: ['**/vendor/**', '**/node_modules/**'],
-        },
-    },
-    
     plugins: [
         laravel({
             input: 'resources/js/app.jsx',
@@ -32,4 +14,11 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
+    build: {
+        outDir: 'public/build',
+        manifest: true,
+        rollupOptions: {
+            input: 'resources/js/app.jsx',
+        },
+    },
 });

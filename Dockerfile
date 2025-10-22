@@ -25,13 +25,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP dependencies
 RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
-# Install Node dependencies (for React/Vite)
-RUN npm install
+# Install Node dependencies and build production assets
+RUN npm ci && npm run build
+
+# Remove node and npm to slim image
+RUN apt-get purge -y nodejs npm && apt-get autoremove -y && apt-get clean
 
 # Fix permissions for Laravel writable dirs
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
-
 
 # Optional if using Apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -51,7 +53,7 @@ RUN apt-get update && apt-get install -y certbot python3-certbot-apache
 
 # Expose ports for Apache and Vite dev server
 EXPOSE 80
-EXPOSE 5173
+EXPOSE 443
 
 # Start Apache
 CMD ["apache2-foreground"]

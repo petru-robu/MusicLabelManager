@@ -7,16 +7,14 @@ services:
     container_name: laravel-app
     ports:
       - "80:80"
-      - "5173:5173"   # expose Vite dev server
       - "443:443"
     volumes:
       - .:/var/www/html
       - ./vendor:/var/www/html/vendor
-      - ./node_modules:/var/www/html/node_modules
       - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./certs:/var/www/html/certs
     environment:
-      - APP_ENV=local
+      - APP_ENV=production
       - APP_DEBUG=false
       - APP_URL=https://petrucodes.ro
       - DB_HOST=db
