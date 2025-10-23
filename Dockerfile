@@ -23,7 +23,7 @@ COPY . .
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install PHP dependencies
-RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
+RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction --no-dev
 
 # Install Node dependencies and build production assets
 # RUN npm ci && npm run build
