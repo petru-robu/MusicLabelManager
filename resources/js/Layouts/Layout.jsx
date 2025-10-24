@@ -1,10 +1,12 @@
+import { Link } from "@inertiajs/react"
+
 export default function Layout({children}) {
     return (
         <>
             <header>
                 <nav>
-                    <a className="nav-link" href="/">Home</a>
-                    <a className="nav-link" href="/create">Create</a>
+                    <Link className="nav-link" href="/">Home</Link>
+                    <Link className="nav-link" href="artists/create">Create</Link>
                 </nav>
             </header>    
 
